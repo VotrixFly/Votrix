@@ -1,0 +1,67 @@
+﻿<Window x:Class="Votrix.Pages.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Votrix.Pages"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Title="Stylet Start Project" Height="600" Width="800"
+        xmlns:s="https://github.com/canton7/Stylet"
+        d:DataContext="{d:DesignInstance local:MainViewModel}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!--右上角窗口按钮-->
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" MouseDown="{s:Action WindowMove}">
+            <Button Width="32" Height="24" Command="{s:Action WindowClose}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
+                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="#FF9F9C9C" />
+            </Button>
+            <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
+                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="#FF9F9C9C" />
+            </Button>
+            <Button Width="32" Height="24" Command="{s:Action WindowMin}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
+                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="#FF9F9C9C" />
+            </Button>
+        </StackPanel>
+
+        <!--左侧选项-->
+        <Grid Grid.RowSpan="2" Background="#FF292828" >
+            <StackPanel Margin="0,0,0,160">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                    <materialDesign:PackIcon Kind="AlphabetVCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                    <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                    <materialDesign:PackIcon Kind="RssFeed" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </Button>
+            </StackPanel>
+            
+            <StackPanel Height="130" VerticalAlignment="Bottom">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                    <materialDesign:PackIcon Kind="SettingsTransfer" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                    <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+
+    </Grid>
+
+</Window>
