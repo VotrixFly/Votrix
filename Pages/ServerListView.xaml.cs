@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Votrix.Pages
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// ServerListView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView : Window
+    public partial class ServerListView : UserControl
     {
-        public MainView()
+        public ServerListView()
         {
             InitializeComponent();
         }

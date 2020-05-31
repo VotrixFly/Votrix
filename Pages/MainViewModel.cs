@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Windows;
 using Stylet;
+using AIGS;
 
 namespace Votrix.Pages
 {
     public class MainViewModel : Screen
     {
+        public ServerListViewModel VMServerList { get; private set; }
+        public MainViewModel(ServerListViewModel serverlist)
+        {
+            VMServerList = serverlist;
+        }
+
+
         public void WindowClose()
         {
             RequestClose();
@@ -18,10 +26,7 @@ namespace Votrix.Pages
 
         public void WindowMax()
         {
-            if(((MainView)this.View).WindowState != WindowState.Maximized)
-                ((MainView)this.View).WindowState = WindowState.Maximized;
-            else
-                ((MainView)this.View).WindowState = WindowState.Normal;
+            AIGS.Helper.ScreenShotHelper.MaxWindow((MainView)this.View);
         }
 
         public void WindowMove()
