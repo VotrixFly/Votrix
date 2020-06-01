@@ -7,13 +7,17 @@ namespace Votrix.Pages
 {
     public class MainViewModel : Screen
     {
+        public bool ShowViewServerList { get; set; } = true;
+        public bool ShowViewRSS { get; set; }
+        public bool ShowViewSettings { get; set; }
         public ServerListViewModel VMServerList { get; private set; }
+
         public MainViewModel(ServerListViewModel serverlist)
         {
             VMServerList = serverlist;
         }
 
-
+        #region 窗口按钮
         public void WindowClose()
         {
             RequestClose();
@@ -33,5 +37,6 @@ namespace Votrix.Pages
         {
             ((MainView)this.View).DragMove();
         }
+        #endregion
     }
 }

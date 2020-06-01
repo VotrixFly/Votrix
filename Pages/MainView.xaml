@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="Stylet Start Project" Height="600" Width="800"
+        Title="Stylet Start Project" Height="650" Width="1000"
         xmlns:s="https://github.com/canton7/Stylet"
         d:DataContext="{d:DesignInstance local:MainViewModel}">
 
