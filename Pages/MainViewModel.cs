@@ -10,12 +10,41 @@ namespace Votrix.Pages
         public bool ShowViewServerList { get; set; } = true;
         public bool ShowViewRSS { get; set; }
         public bool ShowViewSettings { get; set; }
-        public ServerListViewModel VMServerList { get; private set; }
 
-        public MainViewModel(ServerListViewModel serverlist)
+        public ServerListViewModel VMServerList { get; private set; }
+        public SettingsViewModel VMSettings { get; private set; }
+
+        public MainViewModel(ServerListViewModel serverlist,
+                            SettingsViewModel settings)
         {
             VMServerList = serverlist;
+            VMSettings = settings;
         }
+
+        #region 页面显示
+        private void HideAllPage()
+        {
+            ShowViewServerList = false;
+            ShowViewRSS = false;
+            ShowViewSettings = false;
+        }
+        public void ShowPageServerList()
+        {
+            HideAllPage();
+            ShowViewServerList = true;
+        }
+        public void ShowPageSettings()
+        {
+            HideAllPage();
+            ShowViewSettings = true;
+        }
+        public void ShowPageRSS()
+        {
+            HideAllPage();
+            ShowViewRSS = true;
+        }
+
+        #endregion
 
         #region 窗口按钮
         public void WindowClose()

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="Stylet Start Project" Height="650" Width="1000"
+        Title="Stylet Start Project" Height="700" Width="1000"
         xmlns:s="https://github.com/canton7/Stylet"
         d:DataContext="{d:DesignInstance local:MainViewModel}">
 
@@ -24,21 +24,21 @@
         </Grid.ColumnDefinitions>
 
         <!--左侧选项-->
-        <Grid Grid.RowSpan="2" Background="{DynamicResource PrimaryHueDarkBrush}">
+        <Grid Grid.RowSpan="2" Background="{DynamicResource AppColorDarkBrush}">
             <StackPanel Margin="0,15,0,160">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
                     <materialDesign:PackIcon Kind="AlphabetVCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageServerList}" Height="60" >
                     <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageRSS}" Height="60" >
                     <materialDesign:PackIcon Kind="RssFeed" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
             </StackPanel>
             
             <StackPanel Height="130" VerticalAlignment="Bottom">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageSettings}" Height="60" >
                     <materialDesign:PackIcon Kind="SettingsTransfer" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
@@ -48,18 +48,19 @@
         </Grid>
 
         <!--主体-->
-        <local:ServerListView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMServerList}"/>
+        <local:ServerListView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMServerList}" Visibility="{Binding ShowViewServerList, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
+        <local:SettingsView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMSettings}" Visibility="{Binding ShowViewSettings, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
 
         <!--右上角窗口按钮-->
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Background="Transparent" MouseLeftButtonDown="{s:Action WindowMove}">
             <Button Width="32" Height="24" Command="{s:Action WindowClose}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF02414" >
-                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
             </Button>
             <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
             </Button>
             <Button Width="32" Height="24" Command="{s:Action WindowMin}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
             </Button>
         </StackPanel>
     </Grid>

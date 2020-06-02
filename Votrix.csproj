@@ -88,6 +88,10 @@
       <DependentUpon>ServerListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ServerListViewModel.cs" />
+    <Compile Include="Pages\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,6 +125,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\ServerListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

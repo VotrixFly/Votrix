@@ -15,20 +15,31 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Deeppurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Deeppurple.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <!--PRIMARY-->
+            <!--PRIMARY--><!--
             <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#efefef"/>
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#424242"/>
             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#bdbdbd"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#424242"/>
             <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#000000"/>
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
-            <!--ACCENT-->
+            --><!--ACCENT--><!--
             <SolidColorBrush x:Key="AttentionToActionBrush" Color="#69f0ae"/>
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#673ab7"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#69f0ae"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#69f0ae"/>-->
 
-            
+            <!--PRIMARY-->
+            <SolidColorBrush x:Key="AppColorLightBrush" Color="#efefef"/>
+            <SolidColorBrush x:Key="AppColorLightForegroundBrush" Color="#424242"/>
+            <SolidColorBrush x:Key="AppColorMidBrush" Color="#bdbdbd"/>
+            <SolidColorBrush x:Key="AppColorMidForegroundBrush" Color="#424242"/>
+            <SolidColorBrush x:Key="AppColorDarkBrush" Color="#000000"/>
+            <SolidColorBrush x:Key="AppColorDarkForegroundBrush" Color="#FFFFFF"/>
+
+
+
         </s:ApplicationLoader>
     </Application.Resources>
 </Application>
