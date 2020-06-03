@@ -54,13 +54,13 @@
         <!--右上角窗口按钮-->
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Background="Transparent" MouseLeftButtonDown="{s:Action WindowMove}">
             <Button Width="32" Height="24" Command="{s:Action WindowClose}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFF02414" >
-                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource AppColorLightControlBrush}" />
             </Button>
             <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightControlBrush}" />
             </Button>
             <Button Width="32" Height="24" Command="{s:Action WindowMin}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightForegroundBrush}" />
+                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource AppColorLightControlBrush}" />
             </Button>
         </StackPanel>
     </Grid>
