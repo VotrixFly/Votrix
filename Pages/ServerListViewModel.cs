@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using Votrix.Else;
 using Votrix.Net;
+
 using System.Windows.Controls;
 
 namespace Votrix.Pages
@@ -25,6 +26,7 @@ namespace Votrix.Pages
         public Server CurServer { get; set; }
         public ObservableCollection<Server> ServerList { get; set; } = new ObservableCollection<Server>();
 
+
         public static Dictionary<int, string> ComboxSecuritySS { get; set; }
         public static Dictionary<int, string> ComboxSecurityVmess { get; set; }
         public static Dictionary<int, string> ComboxSecuritySocks { get; set; }
@@ -36,6 +38,7 @@ namespace Votrix.Pages
             ComboxSecurityVmess = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eSecurityVmess), false); 
             ComboxSecuritySocks = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eSecuritySocks), false);
             ComboxNetwork = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eNetwork), false);
+
         }
 
         #region 操作服务器
@@ -43,6 +46,7 @@ namespace Votrix.Pages
         public void AddServer()
         {
             ServerList.Add(new Server());
+
         }
 
         //删除服务器
@@ -72,15 +76,18 @@ namespace Votrix.Pages
         }
 
         //选择服务器
+
         public void SelectServer()
         {
             if (SelectIndex < 0)
                 return;
+
             if (CurServer == null)
                 CurServer = new Server();
             CurServer.Copy(ServerList[SelectIndex]);
         }
         
+
         //保存服务器
         public void SaveServer()
         {
@@ -90,5 +97,6 @@ namespace Votrix.Pages
             return;
         }
         #endregion
+
     }
 }
