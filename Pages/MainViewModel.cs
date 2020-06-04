@@ -2,7 +2,8 @@
 using System.Windows;
 using Stylet;
 using AIGS;
-
+using MaterialDesignThemes.Wpf;
+using System.Windows.Input;
 namespace Votrix.Pages
 {
     public class MainViewModel : Screen
@@ -67,5 +68,15 @@ namespace Votrix.Pages
             ((MainView)this.View).DragMove();
         }
         #endregion
+
+
+        public async void ShowAbout()
+        {
+            var view = new AboutView
+            {
+                //Message = { Text = message }
+            };
+            var result = await DialogHost.Show(view, "RootDialog");
+        }
     }
 }

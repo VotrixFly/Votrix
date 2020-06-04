@@ -12,6 +12,7 @@
         xmlns:s="https://github.com/canton7/Stylet"
         d:DataContext="{d:DesignInstance local:MainViewModel}">
 
+    <materialDesign:DialogHost Identifier="RootDialog">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>
@@ -41,13 +42,12 @@
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageSettings}" Height="60" >
                     <materialDesign:PackIcon Kind="SettingsTransfer" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowAbout}" Height="60" >
                     <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>
             </StackPanel>
         </Grid>
-
-        <!--主体-->
+        
         <local:ServerListView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMServerList}" Visibility="{Binding ShowViewServerList, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
         <local:SettingsView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMSettings}" Visibility="{Binding ShowViewSettings, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
 
@@ -64,4 +64,5 @@
             </Button>
         </StackPanel>
     </Grid>
+    </materialDesign:DialogHost>
 </Window>
