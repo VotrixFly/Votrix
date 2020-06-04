@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Votrix.Pages"
              mc:Ignorable="d" 
+             xmlns:aigsc="clr-namespace:AIGS.Control;assembly=AIGS"
              d:DesignHeight="700" d:DesignWidth="1000"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:system="clr-namespace:System;assembly=mscorlib"   
@@ -32,7 +33,7 @@
         </StackPanel>
 
         <!--左侧服务器列表-->
-        <ListBox Grid.Row="1" Grid.Column="0" Background="{DynamicResource AppColorMidBrush}" ItemsSource="{Binding ServerList}">
+        <ListBox Grid.Row="1" Grid.Column="0" Background="{DynamicResource AppColorMidBrush}" ItemsSource="{Binding ServerList}" SelectionChanged="{s:Action SelectServer}" SelectedIndex="{Binding SelectIndex}">
             <ListBox.Resources>
                 <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
             </ListBox.Resources>
@@ -50,11 +51,11 @@
                         <ToggleButton Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Padding="0">
                             <materialDesign:PackIcon Kind="AlphabetVBoxOutline" Height="30" Width="30" Foreground="{DynamicResource AppColorDarkForegroundBrush}"/>
                         </ToggleButton>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Myv2ray" Foreground="{DynamicResource AppColorDarkForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Foreground="{DynamicResource AppColorDarkForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
-                            <TextBlock  Text="127.0.0.1" Foreground="{DynamicResource AppColorLightControlBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Address}" Foreground="{DynamicResource AppColorLightControlBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                             <TextBlock  Text=":" Foreground="{DynamicResource AppColorLightControlBrush}" FontSize="15" VerticalAlignment="Bottom"/>
-                            <TextBlock  Text="1080" Foreground="{DynamicResource AppColorLightControlBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Port}" Foreground="{DynamicResource AppColorLightControlBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
@@ -105,25 +106,13 @@
                     <TextBlock Grid.Row="4" Text="密码:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
                     <TextBlock Grid.Row="5" Text="加密方式:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
 
-                    <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" HorizontalAlignment="Left" Width="260"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <PasswordBox Grid.Row="4" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <ComboBox Grid.Row="5" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
-                        <ComboBoxItem Content="aes-128-gcm"/>
-                        <ComboBoxItem Content="aes-192-gcm"/>
-                        <ComboBoxItem Content="aes-256-gcm"/>
-                        <ComboBoxItem Content="aes-128-cfb"/>
-                        <ComboBoxItem Content="aes-192-cfb"/>
-                        <ComboBoxItem Content="aes-256-cfb"/>
-                        <ComboBoxItem Content="aes-128-ctr"/>
-                        <ComboBoxItem Content="aes-192-ctr"/>
-                        <ComboBoxItem Content="aes-256-ctr"/>
-                        <ComboBoxItem Content="chacha20"/>
-                        <ComboBoxItem Content="chacha20-ietf"/>
-                        <ComboBoxItem Content="chacha20-ietf-poly1305"/>
-                        <ComboBoxItem Content="rc4-md5"/>
-                    </ComboBox>
+                    <TextBox Grid.Row="0" FontSize="13" Text="{Binding CurServer.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="1" FontSize="13" Text="{Binding CurServer.Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="2" FontSize="13" Text="{Binding CurServer.Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" HorizontalAlignment="Left" Width="260"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <PasswordBox Grid.Row="4" FontSize="13" Grid.Column="1" aigsc:PasswordBoxHelper.Attach="True" aigsc:PasswordBoxHelper.Password="{Binding Path=CurServer.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <ComboBox Grid.Row="5" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}" 
+                              ItemsSource="{Binding ComboxSecuritySS}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                              SelectedValue="{Binding CurServer.SecuritySS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
 
                 <!--VMESSSS配置-->
@@ -163,33 +152,26 @@
                     <TextBlock Grid.Row="11" Text="选项:" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                     <!--<TextBlock Grid.Row="12" Text="AllowInsecure" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />-->
 
-                    <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}" />
-                    <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="4" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="5" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <ComboBox Grid.Row="6" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
-                        <ComboBoxItem Content="none"/>
-                        <ComboBoxItem Content="auto"/>
-                        <ComboBoxItem Content="aes-128-gcm"/>
-                        <ComboBoxItem Content="chacha20-poly1305"/>
-                    </ComboBox>
-                    <ComboBox Grid.Row="7" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
-                        <ComboBoxItem Content="tcp"/>
-                        <ComboBoxItem Content="ws"/>
-                        <ComboBoxItem Content="kcp"/>
-                        <ComboBoxItem Content="h2"/>
-                        <ComboBoxItem Content="quic"/>
-                    </ComboBox>
-                    <ComboBox Grid.Row="8" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
+                    <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}" />
+                    <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="4" FontSize="13" Grid.Column="1" Text="{Binding CurServer.UUID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="5" FontSize="13" Grid.Column="1" Text="{Binding CurServer.AlterID,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <ComboBox Grid.Row="6" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"
+                              ItemsSource="{Binding ComboxSecurityVmess}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                              SelectedValue="{Binding CurServer.SecurityVmess, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="7" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"
+                              ItemsSource="{Binding ComboxNetwork}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                              SelectedValue="{Binding CurServer.Network, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="8" Grid.Column="1" BorderThickness="1" Padding="10,6,0,6" SelectedIndex="0" VerticalContentAlignment="Center"  Margin="0.6,7.6,45.2,8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
                         <ComboBoxItem Content="none"/>
                     </ComboBox>
-                    <TextBox Grid.Row="9" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="10" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="9" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Host,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="10" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Path,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
 
                     <StackPanel Grid.Row="11" Grid.Column="1"   Orientation="Horizontal">
-                        <CheckBox Foreground="{DynamicResource AppColorLightForegroundBrush}"  IsChecked="True" Style="{StaticResource MaterialDesignLightCheckBox}" Content="TLS" Margin="0,0,30,0" />
-                        <CheckBox Foreground="{DynamicResource AppColorLightForegroundBrush}"  IsChecked="True" Style="{StaticResource MaterialDesignLightCheckBox}" Content="AllowInsecure" />
+                        <CheckBox Foreground="{DynamicResource AppColorLightForegroundBrush}"  IsChecked="{Binding CurServer.TLSEnable,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignLightCheckBox}" Content="TLS" Margin="0,0,30,0" />
+                        <CheckBox Foreground="{DynamicResource AppColorLightForegroundBrush}"  IsChecked="{Binding CurServer.AllowInsecure,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignLightCheckBox}" Content="AllowInsecure" />
                     </StackPanel>
                     <!--<ToggleButton Grid.Row="11" Grid.Column="1" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" />
                     <ToggleButton Grid.Row="12" Grid.Column="1" Style="{StaticResource MaterialDesignSwitchLightToggleButton}" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0" />-->
@@ -220,25 +202,22 @@
                     <TextBlock Grid.Row="5" Text="密码:" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                     <TextBlock Grid.Row="6" Text="加密方式:" FontSize="15" Foreground="{DynamicResource AppColorLightForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
 
-                    <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center"  Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="4" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <TextBox Grid.Row="5" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
-                    <ComboBox Grid.Row="6" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center" Grid.Column="1" Margin="0.6,7,0,8.6" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}">
-                        <ComboBoxItem Content="aes-128-gcm"/>
-                        <ComboBoxItem Content="aes-256-gcm"/>
-                        <ComboBoxItem Content="aes-128-cfb"/>
-                        <ComboBoxItem Content="aes-256-cfb"/>
-                        <ComboBoxItem Content="chacha20"/>
-                        <ComboBoxItem Content="chacha20-ietf"/>
-                    </ComboBox>
+                    <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" Text="{Binding CurServer.Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center"  Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <TextBox Grid.Row="4" FontSize="13" Grid.Column="1" Text="{Binding CurServer.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+                    <!--<TextBox Grid.Row="5" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>-->
+                    <PasswordBox Grid.Row="5" FontSize="13" Grid.Column="1" aigsc:PasswordBoxHelper.Attach="True" aigsc:PasswordBoxHelper.Password="{Binding Path=CurServer.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"/>
+
+                    <ComboBox Grid.Row="6" BorderThickness="1" Padding="10,6,0,6" VerticalContentAlignment="Center" Grid.Column="1" Margin="0.6,7,0,8.6" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource AppColorLightControlBrush}"  Foreground="{DynamicResource AppColorLightForegroundBrush}"
+                              ItemsSource="{Binding ComboxSecuritySocks}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                              SelectedValue="{Binding CurServer.SecuritySocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
             </Grid>
 
             <!--按钮-->
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0.2,0.4,-0.4">
-                <Button Width="95" Height="30" Content="确定并启动" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="{DynamicResource AppColorDarkForegroundBrush}" Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
+                <Button Width="85" Height="30" Content="确定" Command="{s:Action SaveServer}" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="{DynamicResource AppColorDarkForegroundBrush}" Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
                 <Button Width="60" Height="30" Content="取消" HorizontalAlignment="Right" Margin="0,0,110,0" Background="{DynamicResource AppColorMidBrush}" Foreground="{DynamicResource AppColorMidForegroundBrush}"  Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
                 <Button Width="95" Height="30" Content="剪贴板导入" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{DynamicResource AppColorMidBrush}" Foreground="{DynamicResource AppColorMidForegroundBrush}" Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
             </Grid>

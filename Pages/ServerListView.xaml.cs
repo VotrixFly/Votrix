@@ -23,6 +23,7 @@ namespace Votrix.Pages
         public ServerListView()
         {
             InitializeComponent();
-        }   
+        }
+
     }
 }
