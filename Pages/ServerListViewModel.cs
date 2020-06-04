@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Stylet;
+using AIGS.Helper;
+using AIGS.Common;
 using AIGS;
 using System.Collections.ObjectModel;
+using Votrix.Else;
+using System.Windows.Controls;
 
 namespace Votrix.Pages
 {
@@ -14,21 +18,34 @@ namespace Votrix.Pages
         public bool ShowSS { get; set; } = true;
         public bool ShowVMess { get; set; }
         public bool ShowShocks { get; set; }
-        public ObservableCollection<object> ServerList { get; set; } = new ObservableCollection<object>();
+
+        public int SelectIndex { get; set; }
+        public Server CurServer { get; set; }
+        public ObservableCollection<Server> ServerList { get; set; } = new ObservableCollection<Server>();
 
         public ServerListViewModel()
         {
-            ServerList.Add(new object());
-            ServerList.Add(new object());
-            ServerList.Add(new object());
-            ServerList.Add(new object());
-            ServerList.Add(new object());
+
         }
 
         public void AddServer()
         {
-            return;
+            ServerList.Add(new Server());
         }
 
+        public void SelectServer()
+        {
+            if (SelectIndex < 0)
+                return;
+
+            if (CurServer == null)
+                CurServer = new Server();
+            CurServer.Copy(ServerList[SelectIndex]);
+        }
+        
+        public void SaveServer()
+        {
+            ServerList[SelectIndex].Copy(CurServer);
+        }
     }
 }

@@ -14,12 +14,15 @@ namespace Votrix.Pages
 
         public ServerListViewModel VMServerList { get; private set; }
         public SettingsViewModel VMSettings { get; private set; }
+        public AboutViewModel VMAbout { get; set; }
 
         public MainViewModel(ServerListViewModel serverlist,
-                            SettingsViewModel settings)
+                            SettingsViewModel settings,
+                            AboutViewModel about)
         {
             VMServerList = serverlist;
             VMSettings = settings;
+            VMAbout = about;
         }
 
         #region 页面显示
@@ -29,22 +32,30 @@ namespace Votrix.Pages
             ShowViewRSS = false;
             ShowViewSettings = false;
         }
+
         public void ShowPageServerList()
         {
             HideAllPage();
             ShowViewServerList = true;
         }
+
         public void ShowPageSettings()
         {
             HideAllPage();
             ShowViewSettings = true;
         }
+
         public void ShowPageRSS()
         {
             HideAllPage();
             ShowViewRSS = true;
         }
 
+        public async void ShowAbout()
+        {
+            var view = new AboutView() { DataContext = VMAbout };
+            var result = await DialogHost.Show(view, "RootDialog");
+        }
         #endregion
 
         #region 窗口按钮
@@ -70,13 +81,6 @@ namespace Votrix.Pages
         #endregion
 
 
-        public async void ShowAbout()
-        {
-            var view = new AboutView
-            {
-                //Message = { Text = message }
-            };
-            var result = await DialogHost.Show(view, "RootDialog");
-        }
+        
     }
 }
