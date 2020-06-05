@@ -30,7 +30,7 @@
             <!--ACCENT-->
             <SolidColorBrush x:Key="AttentionToActionBrush" Color="#69f0ae"/>
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#9d46ff"/>
-            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#9d46ff"/>
 
 
 

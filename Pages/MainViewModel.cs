@@ -5,6 +5,7 @@ using AIGS;
 using MaterialDesignThemes.Wpf;
 using System.Windows.Input;
 using Votrix.Else;
+using Votrix.Protocol;
 
 namespace Votrix.Pages
 {

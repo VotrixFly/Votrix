@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Votrix.Net
+namespace Votrix.Protocol
 {
     public class Log
     {

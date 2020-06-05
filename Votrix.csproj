@@ -83,13 +83,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Protocol\Tool.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Else\Config.cs" />
     <Compile Include="Else\Server.cs" />
     <Compile Include="Else\Theme.cs" />
-    <Compile Include="Net\Enum.cs" />
-    <Compile Include="Net\Model.cs" />
+    <Compile Include="Protocol\Enum.cs" />
+    <Compile Include="Protocol\Model.cs" />
     <Compile Include="Pages\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>

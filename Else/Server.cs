@@ -7,7 +7,7 @@ using AIGS.Common;
 using AIGS.Helper;
 using Stylet;
 using System.IO;
-using Votrix.Net;
+using Votrix.Protocol;
 
 using System.Collections.ObjectModel;
 
