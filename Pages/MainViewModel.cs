@@ -4,6 +4,8 @@ using Stylet;
 using AIGS;
 using MaterialDesignThemes.Wpf;
 using System.Windows.Input;
+using Votrix.Else;
+
 namespace Votrix.Pages
 {
     public class MainViewModel : Screen
@@ -16,6 +18,8 @@ namespace Votrix.Pages
         public SettingsViewModel VMSettings { get; private set; }
         public AboutViewModel VMAbout { get; set; }
 
+        public Config.Base BaseConfig { get; set; }
+
         public MainViewModel(ServerListViewModel serverlist,
                             SettingsViewModel settings,
                             AboutViewModel about)
@@ -23,6 +27,10 @@ namespace Votrix.Pages
             VMServerList = serverlist;
             VMSettings = settings;
             VMAbout = about;
+
+            BaseConfig = Config.RWBase();
+            VotrixTheme.Set((VotrixTheme.Type)BaseConfig.Theme);
+            return;
         }
 
         #region 页面显示
