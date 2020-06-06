@@ -83,6 +83,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Else\Settings.cs" />
     <Compile Include="Protocol\Tool.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +130,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Protocol\V2rayTemplate.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

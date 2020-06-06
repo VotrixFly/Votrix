@@ -14,9 +14,9 @@ using System.Collections.ObjectModel;
 namespace Votrix.Else
 {
 
-    public class Server : Screen
+    public class Server
     {
-        public eProtocolType PType { get; set; } = eProtocolType.SS;
+        public eProtocolType PType { get; set; } = eProtocolType.shadowsocks;
 
         public string Name { get; set; } = "New Server" + RandHelper.GetIntRandom(3,9,0);
         public string Address { get; set; } = "127.0.0.1";
@@ -44,30 +44,5 @@ namespace Votrix.Else
         public bool TLSEnable { get; set; } = true;
         public bool AllowInsecure { get; set; } = false;
 
-        public void Copy(Server obj)
-        {
-            PType = obj.PType;
-            Name = obj.Name;
-            Address = obj.Address;
-            Port = obj.Port;
-
-            UserName = obj.UserName;
-            Password = obj.Password;
-
-            SecuritySS = obj.SecuritySS;
-            SecurityVmess = obj.SecurityVmess;
-            SecuritySocks = obj.SecuritySocks;
-
-            UUID = obj.UUID;
-            AlterID = obj.AlterID;
-
-            Network = obj.Network;
-            Type = obj.Type;
-            Host = obj.Host;
-            Path = obj.Path;
-
-            TLSEnable = obj.TLSEnable;
-            AllowInsecure = obj.AllowInsecure;
-        }
     }
 }

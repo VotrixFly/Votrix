@@ -8,11 +8,11 @@ namespace Votrix.Protocol
 {
     public enum eProtocolType
     {
-        SS,
-        Vmess,
-        Socks,
+        shadowsocks,
+        vmess,
+        socks,
     }
-    
+
     public enum eSecuritySS
     {
         aes_128_gcm,
@@ -56,4 +56,14 @@ namespace Votrix.Protocol
         h2,
         quic,
     }
+
+    public enum eLogLevel
+    {
+        debug,
+        info, 
+        warning,
+        error,
+        none,
+    }
+
 }

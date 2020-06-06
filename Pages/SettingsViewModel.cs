@@ -12,21 +12,31 @@ namespace Votrix.Pages
 {
     public class SettingsViewModel : Screen
     {
-        public Config.Base Info { get; set; }
+        public Settings Info { get; set; }
+        //主题列表
         public static Dictionary<int, string> ComboxTheme { get; set; }
+        //配置改变响应
+        public delegate void ChangeSettings(Settings info);
+        public ChangeSettings Callback_Change;
 
         public SettingsViewModel()
         {
             ComboxTheme = AIGS.Common.Convert.ConverEnumToDictionary(typeof(VotrixTheme.Type), false);
-            Info = Config.RWBase();
+            Info = Config.RWSettings();
             return;
         }
 
+        //保存和响应
         public void Save()
         {
-            //保存和响应
-            Config.RWBase(Info);
-            VotrixTheme.Set((VotrixTheme.Type)Info.Theme);
+            Config.RWSettings(Info);
+            if (Callback_Change != null)
+                Callback_Change(Info);
+        }
+
+        public void Cancel()
+        {
+            Info = Config.RWSettings();
         }
     }
 }

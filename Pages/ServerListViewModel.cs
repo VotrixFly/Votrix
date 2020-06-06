@@ -39,25 +39,26 @@ namespace Votrix.Pages
             ComboxSecuritySocks = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eSecuritySocks), false);
             ComboxNetwork = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eNetwork), false);
 
+            ServerList = Config.RWServers();
         }
 
         public void SetProtocolView(eProtocolType eType)
         {
             switch(eType)
             {
-                case eProtocolType.SS: ShowSS = true;break;
-                case eProtocolType.Vmess: ShowVMess = true; break;
-                case eProtocolType.Socks: ShowShocks = true; break;
+                case eProtocolType.shadowsocks: ShowSS = true;break;
+                case eProtocolType.vmess: ShowVMess = true; break;
+                case eProtocolType.socks: ShowShocks = true; break;
             }
         }
-
 
         #region 操作服务器
         //添加服务器
         public void AddServer()
         {
             ServerList.Add(new Server());
-
+            Config.RWServers(ServerList);
+            SetProtocolView(CurServer.PType);
         }
 
         //删除服务器
@@ -66,6 +67,7 @@ namespace Votrix.Pages
             if (SelectIndex < 0)
                 return;
             ServerList.RemoveAt(SelectIndex);
+            Config.RWServers(ServerList);
         }
 
         //启动服务器
@@ -91,23 +93,29 @@ namespace Votrix.Pages
         {
             if (SelectIndex < 0)
                 return;
-
-            if (CurServer == null)
-                CurServer = new Server();
-            CurServer.Copy(ServerList[SelectIndex]);
+            CurServer = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(ServerList[SelectIndex]);
+            SetProtocolView(CurServer.PType);
         }
-        
 
         //保存服务器
         public void SaveServer()
         {
             if (CurServer == null || SelectIndex < 0)
                 return;
-            ServerList[SelectIndex].Copy(CurServer);
+
+            if (ShowSS)
+                CurServer.PType = eProtocolType.shadowsocks;
+            if (ShowShocks)
+                CurServer.PType = eProtocolType.socks;
+            if (ShowVMess)
+                CurServer.PType = eProtocolType.vmess;
+
+            ServerList[SelectIndex] = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(CurServer);
+            Config.RWServers(ServerList);
             return;
         }
 
-        //取消选择
+        //取消修改
         public void CancelChange()
         {
             SelectServer();
@@ -127,7 +135,7 @@ namespace Votrix.Pages
             if (oObj == null)
                 return;
 
-            CurServer.Copy(oObj);
+            CurServer = oObj;
             SetProtocolView(CurServer.PType);
         }
         #endregion
