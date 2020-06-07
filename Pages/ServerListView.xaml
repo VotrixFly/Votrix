@@ -48,9 +48,9 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <ToggleButton Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Padding="0" Background="{DynamicResource SecondaryAccentBrush}">
-                            <materialDesign:PackIcon Kind="AlphabetVBoxOutline" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                            <materialDesign:PackIcon Kind="{Binding Image}" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                         </ToggleButton>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
                             <TextBlock  Text="{Binding Address}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                             <TextBlock  Text=":" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
@@ -73,11 +73,13 @@
             </Grid.RowDefinitions>
 
             <!--协议选项-->
-            <Border Grid.Column="0" Grid.Row="0" Height="130" BorderThickness="0,0,1,0"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Top">
+            <Border Grid.Column="0" Grid.Row="0" Height="200" BorderThickness="0,0,1,0"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Top">
                 <StackPanel Margin="20,2,2,2">
                     <RadioButton Content="SS" IsChecked="{Binding ShowSS}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                     <RadioButton Content="VMESS" IsChecked="{Binding ShowVMess}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                     <RadioButton Content="SOCKS" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                    <!--<RadioButton Content="HTTP" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>-->
+                    <!--<RadioButton Content="TROJAN" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>-->
                 </StackPanel>
             </Border>
 

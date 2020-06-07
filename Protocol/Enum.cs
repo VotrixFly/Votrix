@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Votrix.Protocol
 {
+   
     public enum eProtocolType
     {
         shadowsocks,

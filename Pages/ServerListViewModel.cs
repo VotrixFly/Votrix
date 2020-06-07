@@ -109,6 +109,7 @@ namespace Votrix.Pages
                 CurServer.PType = eProtocolType.socks;
             if (ShowVMess)
                 CurServer.PType = eProtocolType.vmess;
+            CurServer.Image = Server.GetImageName(CurServer.PType);
 
             ServerList[SelectIndex] = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(CurServer);
             Config.RWServers(ServerList);
