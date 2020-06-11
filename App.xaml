@@ -5,7 +5,6 @@
              xmlns:s="https://github.com/canton7/Stylet">
     <Application.Resources>
         <s:ApplicationLoader>
-            
             <!--style启动-->
             <s:ApplicationLoader.Bootstrapper>
                 <local:Bootstrapper />
@@ -13,28 +12,31 @@
 
             <!--主题颜色-->
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Language\en.xaml" /> <!--语言要放大第一个-->
+
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.deeppurple.xaml" />-->
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.deeppurple.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <!--PRIMARY-->
             <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#484848"/>
             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#212121"/>
             <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#000000"/>
-            
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#757575"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#f5f5f5"/>
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
-            
             <!--ACCENT-->
             <SolidColorBrush x:Key="AttentionToActionBrush" Color="#69f0ae"/>
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#9d46ff"/>
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#9d46ff"/>
 
 
-
-
         </s:ApplicationLoader>
+
+
+
     </Application.Resources>
 </Application>

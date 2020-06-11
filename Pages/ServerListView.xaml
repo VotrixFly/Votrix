@@ -26,9 +26,9 @@
         <!--左上角名称与按钮-->
         <DockPanel  Background="{DynamicResource PrimaryHueMidBrush}">
             <TextBlock Text="服务列表" Height="32" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Width="Auto" Padding="15,0,0,0" FontSize="18" VerticalAlignment="Bottom" />
-            <Button Style="{StaticResource MaterialDesignRaisedLightButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" Command="{s:Action AddServer}" Width="24" Height="24" Padding="0" VerticalAlignment="Bottom" Margin="0,0,10,8" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Right">
+            <!--<Button Style="{StaticResource MaterialDesignRaisedLightButton}" materialDesign:ShadowAssist.ShadowDepth="Depth0" Command="{s:Action AddServer}" Width="24" Height="24" Padding="0" VerticalAlignment="Bottom" Margin="0,0,10,8" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Right">
                 <materialDesign:PackIcon Kind="Add" Height="24" Width="24" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
-            </Button>
+            </Button>-->
         </DockPanel>
 
         <!--左侧服务器列表-->
@@ -36,6 +36,12 @@
             <ListBox.Resources>
                 <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
             </ListBox.Resources>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="删除" Command="{s:Action DelServer}"/>
+                    <MenuItem Header="启动" Command="{s:Action StartServer}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="domain:DemoItem">
                     <Grid Height="40">
@@ -60,6 +66,22 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
+        <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
+                                 HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                 Margin="32" Grid.Row="1" Grid.Column="0" Width="45" Height="45" Foreground="White">
+            <StackPanel>
+                <Button ToolTip="导入二维码" Command="{s:Action AddServerFromQrcode}">
+                    <materialDesign:PackIcon Kind="QrcodeScan" Height="20" Width="20" />
+                </Button>
+                <Button ToolTip="导入URL" Command="{s:Action AddServerFromUrl}">
+                    <materialDesign:PackIcon Kind="ContentPaste" Height="20" Width="20" />
+                </Button>
+                <Button ToolTip="手动输入" Command="{s:Action AddServer}">
+                    <materialDesign:PackIcon Kind="BorderColour" Height="20" Width="20" />
+                </Button>
+            </StackPanel>
+        </materialDesign:PopupBox> 
 
         <!--右侧设置-->
         <Grid Grid.Row="1" Grid.Column="1" Background="{DynamicResource PrimaryHueLightBrush}">
@@ -222,11 +244,9 @@
 
             <!--按钮-->
             <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0.2,0.4,-0.4">
-
-                <Button Width="85" Height="30" Content="确定" Command="{s:Action SaveServer}" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Style="{StaticResource MaterialDesignFlatAccentBgButton}" BorderThickness="0" FontSize="12"/>
-
-                <Button Width="60" Height="30" Content="取消" Command="{s:Action CancelChange}" HorizontalAlignment="Right" Margin="0,0,110,0" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
-                <Button Width="95" Height="30" Content="剪贴板导入" Command="{s:Action LoadUrl}" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
+                <Button Width="85" Height="30" Content="{DynamicResource txtBtOK}" Command="{s:Action SaveServer}" HorizontalAlignment="Right" Margin="0,0,10,0" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Style="{StaticResource MaterialDesignFlatAccentBgButton}" BorderThickness="0" FontSize="12"/>
+                <Button Width="60" Height="30" Content="{DynamicResource txtBtCancel}" Command="{s:Action CancelChange}" HorizontalAlignment="Right" Margin="0,0,110,0" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>
+                <!--<Button Width="95" Height="30" Content="剪贴板导入" Command="{s:Action LoadUrl}" HorizontalAlignment="Left" Margin="10,0,0,0" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Style="{StaticResource MaterialDesignFlatMidBgButton}" BorderThickness="0" FontSize="12"/>-->
             </Grid>
         </Grid>
 

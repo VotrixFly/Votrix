@@ -11,8 +11,12 @@ using System.Collections.ObjectModel;
 using System.Collections;
 using Votrix.Else;
 using Votrix.Protocol;
-
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode;
 using System.Windows.Controls;
+using System.Windows;
+using System.Drawing;
 
 namespace Votrix.Pages
 {
@@ -54,11 +58,92 @@ namespace Votrix.Pages
 
         #region 操作服务器
         //添加服务器
-        public void AddServer()
+        public void AddServer(Server oObj = null)
         {
-            ServerList.Add(new Server());
-            Config.RWServers(ServerList);
+            if (oObj == null)
+                oObj = new Server();
+            ServerList.Add(oObj);
+            SelectIndex = ServerList.Count - 1;
+            
+            //显示相应的协议配置页面
             SetProtocolView(CurServer.PType);
+            //保存到配置文件中
+            Config.RWServers(ServerList);
+        }
+
+        //从黏贴导入
+        public void AddServerFromUrl(string sQRCodeText = null)
+        {
+            string sText = null;
+            bool bIsFromQrcode = false;
+            if (sQRCodeText.IsNotBlank())
+            {
+                sText = sQRCodeText;
+                bIsFromQrcode = true;
+            }
+            else
+            {
+                if (SystemHelper.IsClipBoardEmpty())
+                {
+                    MessageBox.Show("导入失败！粘贴板为空" + sText);
+                    return;
+                }
+                sText = SystemHelper.GetClipBoardData<string>();
+            }
+
+            //url解析
+            Server oObj = Tool.LoadURLString(sText);
+            if (oObj == null)
+            {
+                if(bIsFromQrcode)
+                    MessageBox.Show("导入失败！二维码不正确！");
+                else
+                    MessageBox.Show("导入失败！粘贴板内容：" + sText);
+                return;
+            }
+            AddServer(oObj);
+        }
+
+        //扫描二维码导入
+        public void AddServerFromQrcode()
+        {
+            try
+            {
+                foreach (System.Windows.Forms.Screen screen in System.Windows.Forms.Screen.AllScreens)
+                {
+                    using (Bitmap fullImage = new Bitmap(screen.Bounds.Width, screen.Bounds.Height))
+                    {
+                        using (Graphics g = Graphics.FromImage(fullImage))
+                        {
+                            g.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, fullImage.Size, CopyPixelOperation.SourceCopy);
+                        }
+                        int maxTry = 10;
+                        for (int i = 0; i < maxTry; i++)
+                        {
+                            int marginLeft = (int)((double)fullImage.Width * i / 2.5 / maxTry);
+                            int marginTop = (int)((double)fullImage.Height * i / 2.5 / maxTry);
+                            Rectangle cropRect = new Rectangle(marginLeft, marginTop, fullImage.Width - marginLeft * 2, fullImage.Height - marginTop * 2);
+                            Bitmap target = new Bitmap(screen.Bounds.Width, screen.Bounds.Height);
+                            double imageScale = (double)screen.Bounds.Width / (double)cropRect.Width;
+                            using (Graphics g = Graphics.FromImage(target))
+                            {
+                                g.DrawImage(fullImage, new Rectangle(0, 0, target.Width, target.Height), cropRect, GraphicsUnit.Pixel);
+                            }
+                            BitmapLuminanceSource source = new BitmapLuminanceSource(target);
+                            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                            QRCodeReader reader = new QRCodeReader();
+                            Result result = reader.decode(bitmap);
+                            if (result != null)
+                            {
+                                AddServerFromUrl(result.Text);
+                                return;
+                            }
+                        }
+                    }
+                    MessageBox.Show("导入失败！扫描不到二维码！");
+                }
+            }
+            catch { MessageBox.Show("导入失败！未知错误！"); }
         }
 
         //删除服务器
@@ -66,7 +151,15 @@ namespace Votrix.Pages
         {
             if (SelectIndex < 0)
                 return;
+            int iIndex = SelectIndex;
             ServerList.RemoveAt(SelectIndex);
+
+            //删除之后SelectIndex自动变为-1，将当前选项改为下一个服务
+            if (iIndex > ServerList.Count - 1)
+                iIndex -= 1;
+            SelectIndex = iIndex;
+
+            //保存
             Config.RWServers(ServerList);
         }
 
@@ -122,23 +215,7 @@ namespace Votrix.Pages
             SelectServer();
         }
 
-        //从黏贴导入
-        public void LoadUrl()
-        {
-            if (SelectIndex < 0 || CurServer == null)
-                return;
-            
-            if (SystemHelper.IsClipBoardEmpty())
-                return;
-
-            string sText = SystemHelper.GetClipBoardData<string>();
-            Server oObj = Tool.LoadURLString(sText);
-            if (oObj == null)
-                return;
-
-            CurServer = oObj;
-            SetProtocolView(CurServer.PType);
-        }
+        
         #endregion
 
     }

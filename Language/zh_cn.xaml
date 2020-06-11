@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Votrix"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="txtBtCancel">取消</sys:String>
+    <sys:String x:Key="txtBtOK">确定</sys:String>
+    <sys:String x:Key="txtBtDel">删除</sys:String>
+    <sys:String x:Key="txtBtStart">启动</sys:String>
+
+    <sys:String x:Key="txtServerList">服务列表</sys:String>
+    <sys:String x:Key="txtServerRemarks">别名</sys:String>
+    <sys:String x:Key="txtServerAddress">地址</sys:String>
+    <sys:String x:Key="txtServerPort">端口</sys:String>
+    <sys:String x:Key="txtServerPassword">密码</sys:String>
+    <sys:String x:Key="txtServerSecurity">加密方式</sys:String>
+    <sys:String x:Key="txtServerNetwork">传输协议</sys:String>
+    <sys:String x:Key="txtServerHost">域名</sys:String>
+    <sys:String x:Key="txtServerPath">路径</sys:String>
+    <sys:String x:Key="txtServerOptions">选项</sys:String>
+
+    <sys:String x:Key="txtImportManually">手动导入</sys:String>
+    <sys:String x:Key="txtImportUrl">导入URL</sys:String>
+    <sys:String x:Key="txtImportQRCode">扫描二维码</sys:String>
+</ResourceDictionary>

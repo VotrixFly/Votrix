@@ -27,8 +27,17 @@ namespace Votrix.Else
         public string PortSocks5 { get; set; } = "10808";
         public string PortHttp { get; set; } = "10809";
 
-        //支持UDP与局域网分享
+        //支持UDP与局域网分享、多路复用
         public bool SupportUDP { get; set; } = false;
         public bool ShareAreaNetwork { get; set; } = false;
+        public bool OpenMux { get; set; } = true;
+
+        //日志
+        public eLogLevel Loglevel { get; set; } = eLogLevel.warning;
+        public bool SaveLog { get; set; } = false;
+
+        //流量探针
+        public bool OpenSniffing { get; set; } = true;
     }
+
 }

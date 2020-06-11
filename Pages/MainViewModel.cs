@@ -7,6 +7,7 @@ using MaterialDesignThemes.Wpf;
 using System.Windows.Input;
 using Votrix.Else;
 using Votrix.Protocol;
+using System.Collections.Generic;
 
 namespace Votrix.Pages
 {
@@ -34,21 +35,47 @@ namespace Votrix.Pages
             return;
         }
 
+        //获取所选的语言文件
+        public string GetLanguageFile(int iSelectLanguageIndex)
+        {
+            string sBasePath = "Language/";
+            switch (iSelectLanguageIndex)
+            {
+                case 0: return sBasePath + "en.xaml";
+                case 1: return sBasePath + "zh_cn.xaml";
+                default: return sBasePath + "zh_cn.xaml";
+            }
+        }
+
         //修改配置
         public void ChangeSettings(Settings info)
         {
-            if(Setting == null || Setting.AutoStart != info.AutoStart)
+            //开机启动
+            if (Setting == null || Setting.AutoStart != info.AutoStart)
                 SystemHelper.SetPowerBoot("Votrix",info.AutoStart);
+            //自动更新
             if (Setting == null || Setting.AutoUpdate != info.AutoUpdate)
             { 
                 //TODO
             }
+            //语言
             if (Setting == null || Setting.Language != info.Language)
             {
-                //TODO
+                foreach (var item in Application.Current.Resources.MergedDictionaries)
+                {
+                    string sTmp = item.Source.ToString();
+                    if(sTmp.IndexOf("Language") >= 0)
+                    {
+                        int iIndex = Application.Current.Resources.MergedDictionaries.IndexOf(item);
+                        Application.Current.Resources.MergedDictionaries[iIndex] = new ResourceDictionary() { Source = new Uri(GetLanguageFile(info.Language), UriKind.RelativeOrAbsolute) };
+                        break;
+                    }
+                }
             }
+            //主题
             if (Setting == null || Setting.Theme != info.Theme)
                 VotrixTheme.Set((VotrixTheme.Type)info.Theme);
+            //端口、UDP、局域网分享
             if (Setting == null || Setting.PortSocks5 != info.PortSocks5 ||
                 Setting.PortHttp != info.PortHttp ||
                 Setting.SupportUDP != info.SupportUDP ||
@@ -56,7 +83,6 @@ namespace Votrix.Pages
             {
                 //TODO
             }
-
             if (Setting == null)
                 Setting = new Settings();
             AIGS.Common.Convert.ConverClassBToClassA<Settings, Settings>(info, ref Setting);

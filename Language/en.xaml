@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Votrix"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="txtBtCancel">Cancel</sys:String>
+    <sys:String x:Key="txtBtOK">OK</sys:String>
+    <sys:String x:Key="txtBtDel">Delete</sys:String>
+    <sys:String x:Key="txtBtStart">Start</sys:String>
+
+    <sys:String x:Key="txtServerList">Server List</sys:String>
+    <sys:String x:Key="txtServerRemarks">Remarks</sys:String>
+    <sys:String x:Key="txtServerAddress">Address</sys:String>
+    <sys:String x:Key="txtServerPort">Port</sys:String>
+    <sys:String x:Key="txtServerPassword">Password"</sys:String>
+    <sys:String x:Key="txtServerSecurity">Security</sys:String>
+    <sys:String x:Key="txtServerNetwork">Network</sys:String>
+    <sys:String x:Key="txtServerHost">Host</sys:String>
+    <sys:String x:Key="txtServerPath">Path</sys:String>
+    <sys:String x:Key="txtServerOptions">Options</sys:String>
+
+    <sys:String x:Key="txtImportManually">Import Manually</sys:String>
+    <sys:String x:Key="txtImportUrl">Import Url</sys:String>
+    <sys:String x:Key="txtImportQRCode">Import QRCode</sys:String>
+
+</ResourceDictionary>

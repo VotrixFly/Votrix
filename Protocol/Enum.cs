@@ -67,4 +67,11 @@ namespace Votrix.Protocol
         none,
     }
 
+    public enum eDomainStrategy
+    {
+        AsIs,
+        IPIfNonMatch,
+        IPOnDemand,
+    }
+
 }
