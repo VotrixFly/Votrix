@@ -33,7 +33,7 @@ namespace Votrix.Else
         public bool OpenMux { get; set; } = true;
 
         //日志
-        public eLogLevel Loglevel { get; set; } = eLogLevel.warning;
+        public int Loglevel { get; set; } = (int)eLogLevel.warning;
         public bool SaveLog { get; set; } = false;
 
         //流量探针

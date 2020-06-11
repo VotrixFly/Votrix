@@ -148,7 +148,7 @@ namespace Votrix.Protocol
         public static bool CreatV2rayConfig(Server oObject, Settings bBase)
         {
             V2rayConfig config = JsonHelper.ConverStringToObject<V2rayConfig>(SystemHelper.GetEmbedText("Votrix.Protocol.V2rayTemplate.json"));
-            config.SetLog(bBase.Loglevel, bBase.SaveLog);
+            config.SetLog((eLogLevel)bBase.Loglevel, bBase.SaveLog);
             config.SetApi("api", "StatsService");
             config.SetPolicy(true, true);
             //DNS

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Votrix.Pages"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="700" d:DesignWidth="1000"
+             d:DesignHeight="900" d:DesignWidth="1000"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:system="clr-namespace:System;assembly=mscorlib"   
              d:DataContext="{d:DesignInstance local:SettingsViewModel}">
@@ -24,14 +24,18 @@
         </Grid.ColumnDefinitions>
 
         <!--协议选项-->
-        <Border Grid.Column="0" Grid.Row="1" Height="130" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Top">
+        <Border Grid.Column="0" Grid.Row="1" Height="180" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Top">
             <StackPanel Margin="20,2,2,2">
-                <RadioButton Content="基础设置" IsChecked="{Binding ShowSS}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
-                <RadioButton Content="用户PAC设置" IsChecked="{Binding ShowVMess}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                <RadioButton Content="基础设置" IsChecked="{Binding ShowBase}" GroupName="PageSettings" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                <RadioButton Content="用户PAC设置" IsChecked="{Binding ShowPac}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                <RadioButton Content="KCP设置" IsChecked="{Binding ShowKcp}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                <RadioButton Content="路由设置" IsChecked="{Binding ShowRoute}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
             </StackPanel>
         </Border>
 
-        <Grid Grid.Column="1" Grid.Row="1">
+        <!--基础设置-->
+        <!--<Grid Grid.Column="1" Grid.Row="1">-->
+            <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowBase, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
             <ScrollViewer >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -71,14 +75,17 @@
                         <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Left"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" BorderThickness="1" Padding="10,6,0,6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                             ItemsSource="{Binding ComboxTheme}" SelectedValuePath="Key" DisplayMemberPath="Value" 
                             SelectedValue="{Binding Info.Theme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <GridSplitter Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"  Background="{DynamicResource PrimaryHueLightForegroundBrush}" Margin="20,7,20,7.2" Height="1" HorizontalAlignment="Stretch"/>
                     </Grid>
 
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="45"/>
                             <RowDefinition Height="45"/>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="15"/>
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -92,11 +99,66 @@
                         <TextBox Grid.Row="0" FontSize="13" Grid.Column="2" Text="{Binding Info.PortSocks5,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="200" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
                         <TextBox Grid.Row="1" FontSize="13" Grid.Column="2" Text="{Binding Info.PortHttp,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="200" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}"/>
                         <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Info.SupportUDP,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignAccentCheckBox}" Content="支持UDP" />
-                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Info.ShareAreaNetwork,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="局域网分享" />
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{Binding Info.ShareAreaNetwork,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="局域网分享"  />
+                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding Info.OpenSniffing,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignAccentCheckBox}" Content="开启流量探针" />
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding Info.OpenMux,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignAccentCheckBox}" Content="开启Mux多路复用" />
+                        <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"  Background="{DynamicResource PrimaryHueLightForegroundBrush}" Margin="20,7,20,7.2" Height="1" HorizontalAlignment="Stretch"/>
                     </Grid>
-                    
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="104"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Text="日志:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" IsChecked="{Binding Info.SaveLog,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignAccentCheckBox}" Content="记录日志" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="等级" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <ComboBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Left"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" BorderThickness="1" Padding="10,6,0,6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                            ItemsSource="{Binding ComboxLogLevel}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                            SelectedValue="{Binding Info.Loglevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <GridSplitter Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"  Background="{DynamicResource PrimaryHueLightForegroundBrush}" Margin="20,7,20,7.2" Height="1" HorizontalAlignment="Stretch"/>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="自定义GFWList地址:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Left" />
+                        <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="没有可不填" Padding="0" Margin="20,0"/>
+                    </Grid>
+
+                    <Grid Grid.Row="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="自定义DNS,逗号隔开:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Left" />
+                        <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="没有可不填" Padding="0" Margin="20,0"/>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
+        </Grid>
+
+        <!--用户PAC设置-->
+        <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowPac, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+            <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                     Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                     AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                     materialDesign:HintAssist.Hint="设置用户PAC规则，用逗号隔开" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Margin="10,0,19.8,0.4" />
         </Grid>
 
 
