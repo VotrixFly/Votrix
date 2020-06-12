@@ -34,7 +34,7 @@
 
         <!--基础设置-->
         <!--<Grid Grid.Column="1" Grid.Row="1">-->
-        <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowBase, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+            <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowBase, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
             <ScrollViewer >
                 <ScrollViewer.Resources>
                     <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
@@ -68,6 +68,7 @@
                         <TextBlock Grid.Row="2" Text="语言:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                         <TextBlock Grid.Row="3" Text="主题:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                         <CheckBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  IsChecked="{Binding Info.AutoStart,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="开机启动" />
+                        <CheckBox Grid.Row="0" Grid.Column="1" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  IsChecked="{Binding Info.SmallStart,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="启动时缩放到托盘" Margin="99,0,0,44.4" Grid.RowSpan="2" />
                         <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  IsChecked="{Binding Info.AutoUpdate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignAccentCheckBox}" Content="自动获取最新版本" />
                         <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Width="200" HorizontalAlignment="Left" BorderThickness="1" Padding="10,6,0,6"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                                   SelectedIndex="{Binding Info.Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -198,7 +199,7 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Text="KCP设置:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
-                        
+
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="MTU" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
                         <TextBlock Grid.Row="0" Grid.Column="4" Text="TTI" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0" />
                         <TextBox Grid.Row="0" FontSize="13" Grid.Column="2" Text="{Binding Info.Mtu,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
@@ -245,7 +246,7 @@
                             <ComboBoxItem>绕过大陆地址</ComboBoxItem>
                             <ComboBoxItem>绕过局域网和大陆地址</ComboBoxItem>
                         </ComboBox>
-                        
+
                         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="20,4,4,4">
                             <RadioButton Content="代理的Domain和IP" IsChecked="{Binding ShowAgent}" GroupName="PageDomainIP" Style="{StaticResource MaterialDesignTabRadioButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                             <RadioButton Content="阻止的Domain和IP" IsChecked="{Binding ShowLimit}" GroupName="PageDomainIP" Style="{StaticResource MaterialDesignTabRadioButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>

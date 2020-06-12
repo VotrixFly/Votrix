@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Votrix"
              xmlns:s="https://github.com/canton7/Stylet">
     <Application.Resources>
-        <s:ApplicationLoader>
+        <s:ApplicationLoader >
             <!--style启动-->
             <s:ApplicationLoader.Bootstrapper>
                 <local:Bootstrapper />

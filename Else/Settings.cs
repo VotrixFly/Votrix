@@ -14,8 +14,9 @@ namespace Votrix.Else
 {
     public class Settings
     {
-        //开机启动
+        //开机启动、启动时最小化
         public bool AutoStart { get; set; } = true;
+        public bool SmallStart { get; set; } = true;
         //自动更新
         public bool AutoUpdate { get; set; } = true;
 

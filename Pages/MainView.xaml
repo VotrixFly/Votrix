@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         Title="Votrix" Height="700" Width="1000"
         xmlns:s="https://github.com/canton7/Stylet"
         d:DataContext="{d:DesignInstance local:MainViewModel}">
@@ -24,7 +25,22 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <!--左侧选项-->
+            <tb:TaskbarIcon LeftClickCommand="{s:Action WindowShow}" IconSource="/Votrix;component/icon/log_cloud.ico">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="模式选择" Command="{s:Action WindowClose}"/>
+                        <MenuItem Header="服务器选择" Command="{s:Action WindowClose}"/>
+                        <Separator />
+                        <MenuItem Header="导入二维码" Command="{s:Action AddServerFromQrcode}"/>
+                        <MenuItem Header="导入URL" Command="{s:Action AddServerFromUrl}"/>
+                        <Separator />
+                        <MenuItem Header="退出程序" Command="{s:Action WindowClose}"/>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
+
+
+            <!--左侧选项-->
         <Grid Grid.RowSpan="2" Background="{DynamicResource PrimaryHueDarkBrush}">
             <StackPanel Margin="0,15,0,160">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
@@ -53,7 +69,7 @@
 
         <!--右上角窗口按钮-->
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Background="Transparent" MouseLeftButtonDown="{s:Action WindowMove}">
-                <Button Width="32" Height="24" Command="{s:Action WindowClose}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" >
+                <Button Width="32" Height="24" Command="{s:Action WindowHide}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" >
                 <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
             </Button>
             <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">

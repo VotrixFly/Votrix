@@ -8,13 +8,15 @@ using System.Windows.Input;
 using Votrix.Else;
 using Votrix.Protocol;
 using System.Collections.Generic;
+using System.Threading;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Votrix.Pages
 {
     public class MainViewModel : Screen
     {
         public Settings Setting;
-
         public bool ShowViewServerList { get; set; } = true;
         public bool ShowViewRSS { get; set; }
         public bool ShowViewSettings { get; set; }
@@ -25,14 +27,26 @@ namespace Votrix.Pages
         public MainViewModel(ServerListViewModel serverlist, SettingsViewModel settings, AboutViewModel about)
         {
             VMServerList = serverlist;
-            VMSettings = settings;
             VMAbout = about;
+            VMSettings = settings;
+            VMSettings.Callback_Change = ChangeSettings;
+            return;
+        }
+
+        //运行前加载配置
+        protected override void OnViewLoaded()
+        {
+            if (SystemHelper.IsProcessExist("Votrix"))
+            {
+                MessageBox.Show("Votrix已经运行！");
+                WindowHide();
+                WindowClose();
+                return;
+            }
 
             //配置读取
             Settings set = Config.RWSettings();
             ChangeSettings(set);
-            VMSettings.Callback_Change = ChangeSettings;
-            return;
         }
 
         //获取所选的语言文件
@@ -72,6 +86,12 @@ namespace Votrix.Pages
                     }
                 }
             }
+            //托盘显示(刚启动时，如果设置了托盘显示，并且至少配置了一个服务器，则隐藏主窗口)
+            if (Setting == null)
+            {
+                if (VMServerList.ServerList.Count > 0 && info.SmallStart)
+                    WindowHide();
+            }
             //主题
             if (Setting == null || Setting.Theme != info.Theme)
                 VotrixTheme.Set((VotrixTheme.Type)info.Theme);
@@ -88,6 +108,18 @@ namespace Votrix.Pages
             AIGS.Common.Convert.ConverClassBToClassA<Settings, Settings>(info, ref Setting);
             return;
         }
+
+        #region 托盘响应
+        public void AddServerFromQrcode()
+        {
+            VMServerList.AddServerFromQrcode();
+        }
+
+        public void AddServerFromUrl()
+        {
+            VMServerList.AddServerFromUrl();
+        }
+        #endregion
 
         #region 页面显示
         //隐藏所有页面
@@ -150,6 +182,18 @@ namespace Votrix.Pages
         public void WindowMove()
         {
             ((MainView)this.View).DragMove();
+        }
+
+        //显示窗口
+        public void WindowShow()
+        {
+            Application.Current.MainWindow.Show();
+        }
+
+        //隐藏窗口
+        public void WindowHide()
+        {
+            Application.Current.MainWindow.Hide();
         }
         #endregion
     }
