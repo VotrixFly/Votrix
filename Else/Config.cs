@@ -16,6 +16,7 @@ namespace Votrix.Else
         private static string Path = "./data/";
         private static string SettingsPath { get { return Path + "settings.json";  } }
         private static string ServersPath { get { return Path + "servers.json"; } }
+        private static string RssPath { get { return Path + "rss.json"; } }
 
         #region 读写
         public static T ReadWrite<T>(string path, T wObj = default(T))
@@ -37,6 +38,12 @@ namespace Votrix.Else
         {
             ObservableCollection<Server> ret = ReadWrite<ObservableCollection<Server>>(ServersPath, wObj);
             return ret == null ? new ObservableCollection<Server>() : ret;
+        }
+
+        public static ObservableCollection<RSS> RWRss(ObservableCollection<RSS> wObj = null)
+        {
+            ObservableCollection<RSS> ret = ReadWrite<ObservableCollection<RSS>>(RssPath, wObj);
+            return ret == null ? new ObservableCollection<RSS>() : ret;
         }
 
         public static Settings RWSettings(Settings wObj = null)

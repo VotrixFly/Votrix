@@ -25,11 +25,15 @@ namespace Votrix.Pages
         public bool ShowViewSettings { get; set; }
         public ServerListViewModel VMServerList { get; private set; }
         public SettingsViewModel VMSettings { get; private set; }
+        public RSSViewModel VMRSS { get; private set; }
         public AboutViewModel VMAbout { get; set; }
 
-        public MainViewModel(ServerListViewModel serverlist, SettingsViewModel settings, AboutViewModel about)
+
+        public MainViewModel(ServerListViewModel serverlist, SettingsViewModel settings, RSSViewModel rss, AboutViewModel about)
         {
             VMAbout = about;
+            VMRSS = rss;
+            VMRSS.Callback_ShowErr = ShowErrmessage;
             VMSettings = settings;
             VMSettings.Callback_Change = ChangeSettings;
             VMServerList = serverlist;

@@ -93,7 +93,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Else\RSS.cs" />
     <Compile Include="Else\Settings.cs" />
+    <Compile Include="Pages\RSSView.xaml.cs">
+      <DependentUpon>RSSView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RSSViewModel.cs" />
     <Compile Include="Protocol\Tool.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +166,10 @@
     <Page Include="Pages\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RSSView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ServerListView.xaml">
       <SubType>Designer</SubType>
