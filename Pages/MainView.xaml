@@ -14,16 +14,16 @@
         d:DataContext="{d:DesignInstance local:MainViewModel}">
 
     <materialDesign:DialogHost Identifier="RootDialog">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
             <tb:TaskbarIcon LeftClickCommand="{s:Action WindowShow}" IconSource="/Votrix;component/icon/log_cloud.ico">
                 <tb:TaskbarIcon.ContextMenu>
@@ -41,44 +41,49 @@
 
 
             <!--左侧选项-->
-        <Grid Grid.RowSpan="2" Background="{DynamicResource PrimaryHueDarkBrush}">
-            <StackPanel Margin="0,15,0,160">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
-                    <materialDesign:PackIcon Kind="AlphabetVCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageServerList}" Height="60" >
-                    <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
-                </Button>
-                <!--<Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageRSS}" Height="60" >
+            <Grid Grid.RowSpan="2" Background="{DynamicResource PrimaryHueDarkBrush}">
+                <StackPanel Margin="0,15,0,160">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Height="60" >
+                        <materialDesign:PackIcon Kind="AlphabetVCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageServerList}" Height="60" >
+                        <materialDesign:PackIcon Kind="ViewList" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                    </Button>
+                    <!--<Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageRSS}" Height="60" >
                     <materialDesign:PackIcon Kind="RssFeed" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
                 </Button>-->
-            </StackPanel>
-            
-            <StackPanel Height="130" VerticalAlignment="Bottom">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageSettings}" Height="60" >
-                    <materialDesign:PackIcon Kind="SettingsTransfer" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                </StackPanel>
+
+                <StackPanel Height="130" VerticalAlignment="Bottom">
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowPageSettings}" Height="60" >
+                        <materialDesign:PackIcon Kind="SettingsTransfer" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowAbout}" Height="60" >
+                        <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <local:ServerListView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMServerList}" Visibility="{Binding ShowViewServerList, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
+            <local:SettingsView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMSettings}" Visibility="{Binding ShowViewSettings, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
+
+            <!--错误信息显示-->
+            <materialDesign:Snackbar IsActive="{Binding ShowErr}" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,-2">
+                <materialDesign:SnackbarMessage Content="{Binding ErrMessage}" ActionContent="OK" ActionClick="{s:Action HideErrmessage}"/>
+            </materialDesign:Snackbar>
+
+            <!--右上角窗口按钮-->
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Background="Transparent" MouseLeftButtonDown="{s:Action WindowMove}">
+                <Button Width="32" Height="24" Command="{s:Action WindowHide}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" >
+                    <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Command="{s:Action ShowAbout}" Height="60" >
-                    <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="30" Width="30" RenderTransformOrigin="0.16,0.207" Foreground="White"/>
+                <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                </Button>
+                <Button Width="32" Height="24" Command="{s:Action WindowMin}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
                 </Button>
             </StackPanel>
         </Grid>
-        
-        <local:ServerListView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMServerList}" Visibility="{Binding ShowViewServerList, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
-        <local:SettingsView Grid.RowSpan="2" Grid.Column="1" s:View.Model="{Binding VMSettings}" Visibility="{Binding ShowViewSettings, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"/>
-
-        <!--右上角窗口按钮-->
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" FlowDirection="RightToLeft" Background="Transparent" MouseLeftButtonDown="{s:Action WindowMove}">
-                <Button Width="32" Height="24" Command="{s:Action WindowHide}" HorizontalAlignment="Right" Padding="0" Style="{StaticResource MaterialDesignFlatButton}" >
-                <materialDesign:PackIcon Kind="Close" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
-            </Button>
-            <Button Width="32" Height="24" Command="{s:Action WindowMax}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMaximize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
-            </Button>
-            <Button Width="32" Height="24" Command="{s:Action WindowMin}" Padding="0" Style="{StaticResource MaterialDesignFlatButton}">
-                <materialDesign:PackIcon Kind="WindowMinimize" Height="18" Width="18" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" />
-            </Button>
-        </StackPanel>
-    </Grid>
     </materialDesign:DialogHost>
 </Window>

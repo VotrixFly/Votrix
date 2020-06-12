@@ -36,6 +36,11 @@ namespace Votrix.Pages
         public static Dictionary<int, string> ComboxSecuritySocks { get; set; }
         public static Dictionary<int, string> ComboxNetwork { get; set; }
 
+
+        //错误信息显示
+        public delegate void ShowErrmessage(string info);
+        public ShowErrmessage Callback_ShowErr;
+
         public ServerListViewModel()
         {
             ComboxSecuritySS = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eSecuritySS), false);
@@ -85,7 +90,7 @@ namespace Votrix.Pages
             {
                 if (SystemHelper.IsClipBoardEmpty())
                 {
-                    MessageBox.Show("导入失败！粘贴板为空" + sText);
+                    Callback_ShowErr("导入失败！粘贴板为空" + sText);
                     return;
                 }
                 sText = SystemHelper.GetClipBoardData<string>();
@@ -96,9 +101,9 @@ namespace Votrix.Pages
             if (oObj == null)
             {
                 if(bIsFromQrcode)
-                    MessageBox.Show("导入失败！二维码不正确！");
+                    Callback_ShowErr("导入失败！二维码不正确！");
                 else
-                    MessageBox.Show("导入失败！粘贴板内容：" + sText);
+                    Callback_ShowErr("导入失败！粘贴板内容：" + sText);
                 return;
             }
             AddServer(oObj);
@@ -140,10 +145,10 @@ namespace Votrix.Pages
                             }
                         }
                     }
-                    MessageBox.Show("导入失败！扫描不到二维码！");
+                    Callback_ShowErr("导入失败！扫描不到二维码！");
                 }
             }
-            catch { MessageBox.Show("导入失败！未知错误！"); }
+            catch { Callback_ShowErr("导入失败！未知错误！"); }
         }
 
         //删除服务器

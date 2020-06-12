@@ -16,6 +16,9 @@ namespace Votrix.Pages
 {
     public class MainViewModel : Screen
     {
+        public string ErrMessage { get; set; }
+        public bool ShowErr { get; set; } = false;
+
         public Settings Setting;
         public bool ShowViewServerList { get; set; } = true;
         public bool ShowViewRSS { get; set; }
@@ -26,10 +29,11 @@ namespace Votrix.Pages
 
         public MainViewModel(ServerListViewModel serverlist, SettingsViewModel settings, AboutViewModel about)
         {
-            VMServerList = serverlist;
             VMAbout = about;
             VMSettings = settings;
             VMSettings.Callback_Change = ChangeSettings;
+            VMServerList = serverlist;
+            VMServerList.Callback_ShowErr = ShowErrmessage;
             return;
         }
 
@@ -113,11 +117,13 @@ namespace Votrix.Pages
         public void AddServerFromQrcode()
         {
             VMServerList.AddServerFromQrcode();
+            WindowShow();
         }
 
         public void AddServerFromUrl()
         {
             VMServerList.AddServerFromUrl();
+            WindowShow();
         }
         #endregion
 
@@ -194,6 +200,19 @@ namespace Votrix.Pages
         public void WindowHide()
         {
             Application.Current.MainWindow.Hide();
+        }
+        #endregion
+
+        #region 错误窗口
+        public void ShowErrmessage(string message)
+        {
+            ShowErr = true;
+            ErrMessage = message;
+        }
+
+        public void HideErrmessage()
+        {
+            ShowErr = false;
         }
         #endregion
     }
