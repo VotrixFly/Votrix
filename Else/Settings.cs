@@ -38,6 +38,27 @@ namespace Votrix.Else
 
         //流量探针
         public bool OpenSniffing { get; set; } = true;
+
+        //GFW地址/DNS/PAC
+        public string GFWList { get; set; }
+        public string DNSList { get; set; }
+        public string PACList { get; set; }
+
+        //KCP设置
+        public int Mtu { get; set; } = 1350;
+        public int Tti { get; set; } = 50;
+        public int UplinkCapacity { get; set; } = 12;
+        public int DownlinkCapacity { get; set; } = 100;
+        public int ReadBufferSize { get; set; } = 2;
+        public int WriteBufferSize { get; set; } = 2;
+        public bool Congestion { get; set; } = false;
+
+        //路由设置
+        public int DomainStrategy { get; set; } = (int)eDomainStrategy.IPIfNonMatch;
+        public string AgentDomain { get; set; }
+        public string LimitDomain { get; set; }
+        public string DirectDomain { get; set; }
+        public int RouteRule { get; set; } = 3;
     }
 
 }

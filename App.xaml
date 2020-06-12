@@ -33,7 +33,7 @@
             <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#9d46ff"/>
             <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#9d46ff"/>
 
-
+            
         </s:ApplicationLoader>
 
 

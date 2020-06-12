@@ -27,16 +27,18 @@
         <Border Grid.Column="0" Grid.Row="1" Height="180" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Top">
             <StackPanel Margin="20,2,2,2">
                 <RadioButton Content="基础设置" IsChecked="{Binding ShowBase}" GroupName="PageSettings" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                <RadioButton Content="高级设置" IsChecked="{Binding ShowHigh}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                 <RadioButton Content="用户PAC设置" IsChecked="{Binding ShowPac}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
-                <RadioButton Content="KCP设置" IsChecked="{Binding ShowKcp}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
-                <RadioButton Content="路由设置" IsChecked="{Binding ShowRoute}" GroupName="PageSettings"  Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
             </StackPanel>
         </Border>
 
         <!--基础设置-->
         <!--<Grid Grid.Column="1" Grid.Row="1">-->
-            <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowBase, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+        <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowBase, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
             <ScrollViewer >
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                </ScrollViewer.Resources>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -135,6 +137,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="自定义GFWList地址:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Left" />
                         <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                                 Text="{Binding Info.GFWList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="没有可不填" Padding="0" Margin="20,0"/>
                     </Grid>
 
@@ -147,6 +150,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="自定义DNS,逗号隔开:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Left" />
                         <TextBox Grid.Row="1" Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                                 Text="{Binding Info.DNSList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  AcceptsReturn="True" TextWrapping="Wrap" materialDesign:HintAssist.Hint="没有可不填" Padding="0" Margin="20,0"/>
                     </Grid>
                 </Grid>
@@ -157,10 +161,122 @@
         <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowPac, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
             <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                      Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                     Text="{Binding Info.PACList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
                      materialDesign:HintAssist.Hint="设置用户PAC规则，用逗号隔开" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Margin="10,0,19.8,0.4" />
         </Grid>
 
+        <!--高级设置-->
+        <Grid Grid.Column="1" Grid.Row="1" Visibility="{Binding ShowHigh, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+            <ScrollViewer >
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
+                </ScrollViewer.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Text="KCP设置:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
+                        
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="MTU" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <TextBlock Grid.Row="0" Grid.Column="4" Text="TTI" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0" />
+                        <TextBox Grid.Row="0" FontSize="13" Grid.Column="2" Text="{Binding Info.Mtu,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
+                        <TextBox Grid.Row="0" FontSize="13" Grid.Column="5" Text="{Binding Info.Tti,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="上行链路容量" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="4" Text="下行链路容量" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <TextBox Grid.Row="1" FontSize="13" Grid.Column="2" Text="{Binding Info.UplinkCapacity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
+                        <TextBox Grid.Row="1" FontSize="13" Grid.Column="5" Text="{Binding Info.DownlinkCapacity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="ReadBufSize" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <TextBlock Grid.Row="2" Grid.Column="4" Text="WriteBufSize" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="0,0,10,0" />
+                        <TextBox Grid.Row="2" FontSize="13" Grid.Column="2" Text="{Binding Info.ReadBufferSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
+                        <TextBox Grid.Row="2" FontSize="13" Grid.Column="5" Text="{Binding Info.WriteBufferSize,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Bottom" BorderThickness="1" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="100" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}"/>
+
+                        <CheckBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" IsChecked="{Binding Info.Congestion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Style="{StaticResource MaterialDesignAccentCheckBox}" Content="Congestion" />
+                        <GridSplitter Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="7"  Background="{DynamicResource PrimaryHueLightForegroundBrush}" Margin="20,7,20,7.2" Height="1" HorizontalAlignment="Stretch"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="域名解析策略:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0,10,0" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="规则:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0,10,0" />
+                        <ComboBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Left"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" BorderThickness="1" Padding="10,6,0,6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                            ItemsSource="{Binding ComboxDomainStrategy}" SelectedValuePath="Key" DisplayMemberPath="Value" 
+                            SelectedValue="{Binding Info.DomainStrategy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Grid.Row="0" Grid.Column="2" Width="150" Height="30" Content="设置默认路由规则" Command="{s:Action SetDefaultRouting}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Style="{StaticResource MaterialDesignFlatAccentBgButton}" BorderThickness="0" FontSize="12"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Width="200" HorizontalAlignment="Left"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" BorderThickness="1" Padding="10,6,0,6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                            SelectedIndex="{Binding Info.RouteRule, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem>全局</ComboBoxItem>
+                            <ComboBoxItem>绕过局域网地址</ComboBoxItem>
+                            <ComboBoxItem>绕过大陆地址</ComboBoxItem>
+                            <ComboBoxItem>绕过局域网和大陆地址</ComboBoxItem>
+                        </ComboBox>
+                        
+                        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="20,4,4,4">
+                            <RadioButton Content="代理的Domain和IP" IsChecked="{Binding ShowAgent}" GroupName="PageDomainIP" Style="{StaticResource MaterialDesignTabRadioButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                            <RadioButton Content="阻止的Domain和IP" IsChecked="{Binding ShowLimit}" GroupName="PageDomainIP" Style="{StaticResource MaterialDesignTabRadioButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                            <RadioButton Content="直连的的Domain和IP" IsChecked="{Binding ShowDirect}" GroupName="PageDomainIP" Style="{StaticResource MaterialDesignTabRadioButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                        </StackPanel>
+
+                        <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Height="400"
+                                 Visibility="{Binding ShowAgent, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                                 AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 Text="{Binding Info.AgentDomain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 materialDesign:HintAssist.Hint="代理的Domain和IP,逗号隔开" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Margin="10,0,19.8,0.4" />
+                        <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Height="400"
+                                 Visibility="{Binding ShowLimit, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                                 Text="{Binding Info.LimitDomain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 materialDesign:HintAssist.Hint="阻止的Domain和IP,逗号隔开" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Margin="10,0,19.8,0.4" />
+                        <TextBox Style="{StaticResource MaterialDesignFilledTextFieldTextBox}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                 Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Height="400"
+                                 Visibility="{Binding ShowDirect, Converter={x:Static s:BoolToVisibilityConverter.Instance}}"
+                                 Text="{Binding Info.DirectDomain, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                 materialDesign:HintAssist.Hint="直连的Domain和IP,逗号隔开" materialDesign:HintAssist.Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" Margin="10,0,19.8,0.4" />
+
+                        <GridSplitter Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"  Background="{DynamicResource PrimaryHueLightForegroundBrush}" Margin="20,7,20,7.2" Height="1" HorizontalAlignment="Stretch"/>
+                    </Grid>
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
 
         <!--按钮-->
         <Grid Grid.Row="2" Grid.ColumnSpan="2">

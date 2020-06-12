@@ -8,7 +8,6 @@ using AIGS.Helper;
 using Stylet;
 using System.IO;
 using Votrix.Protocol;
-
 using System.Collections.ObjectModel;
 
 namespace Votrix.Else
@@ -16,8 +15,7 @@ namespace Votrix.Else
 
     public class Server
     {
-        
-        public string Image { get; set; } = "AlphaSBoxOutline";
+        public bool Open { get; set; } = false;
         public eProtocolType PType { get; set; } = eProtocolType.shadowsocks;
 
         public string Name { get; set; } = "New Server" + RandHelper.GetIntRandom(3,9,0);
@@ -45,23 +43,5 @@ namespace Votrix.Else
 
         public bool TLSEnable { get; set; } = true;
         public bool AllowInsecure { get; set; } = false;
-
-
-
-        public static string GetImageName(eProtocolType eType)
-        {
-            if (eType == eProtocolType.shadowsocks)
-                return "AlphaSBoxOutline";
-            if (eType == eProtocolType.vmess)
-                return "AlphabetVBoxOutline";
-            if (eType == eProtocolType.socks)
-                return "AlphaKBoxOutline";
-
-            //http AlphaHBoxOutline
-            //Trojn AlphaTBoxOutline
-
-            return "CarEmergencyBrake";
-        }
-
     }
 }

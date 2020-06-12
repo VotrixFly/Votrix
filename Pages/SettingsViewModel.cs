@@ -16,10 +16,13 @@ namespace Votrix.Pages
         //配置信息
         public Settings Info { get; set; }
         
-        //主题列表和日志等级
+        //主题列表和日志等级和域名解析策略
         public static Dictionary<int, string> ComboxTheme { get; set; }
         public static Dictionary<int, string> ComboxLogLevel { get; set; }
+        public static Dictionary<int, string> ComboxDomainStrategy { get; set; }
 
+
+        
         //配置改变响应
         public delegate void ChangeSettings(Settings info);
         public ChangeSettings Callback_Change;
@@ -27,15 +30,26 @@ namespace Votrix.Pages
         //页面显示
         public bool ShowBase { get; set; } = true;
         public bool ShowPac { get; set; }
-        public bool ShowKcp { get; set; }
-        public bool ShowRoute { get; set; }
+        public bool ShowHigh { get; set; }
+
+        //Domain/IP的页面显示
+        public bool ShowAgent { get; set; } = true;
+        public bool ShowLimit { get; set; } 
+        public bool ShowDirect { get; set; } 
 
         public SettingsViewModel()
         {
             ComboxTheme = AIGS.Common.Convert.ConverEnumToDictionary(typeof(VotrixTheme.Type), false);
             ComboxLogLevel = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eLogLevel), false);
+            ComboxDomainStrategy = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eDomainStrategy), false);
+
             Info = Config.RWSettings();
             return;
+        }
+
+        public void SetDefaultRouting()
+        {
+
         }
 
         //保存和响应

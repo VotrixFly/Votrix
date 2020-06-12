@@ -166,7 +166,8 @@ namespace Votrix.Pages
         //启动服务器
         public void StartServer()
         {
-
+            CurServer.Open = true;
+            SaveServer();
         }
 
         //关闭服务器
@@ -202,9 +203,10 @@ namespace Votrix.Pages
                 CurServer.PType = eProtocolType.socks;
             if (ShowVMess)
                 CurServer.PType = eProtocolType.vmess;
-            CurServer.Image = Server.GetImageName(CurServer.PType);
 
+            int iIndex = SelectIndex;
             ServerList[SelectIndex] = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(CurServer);
+            SelectIndex = iIndex;
             Config.RWServers(ServerList);
             return;
         }

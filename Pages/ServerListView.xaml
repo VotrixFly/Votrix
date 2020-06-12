@@ -38,29 +38,32 @@
             </ListBox.Resources>
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="删除" Command="{s:Action DelServer}"/>
                     <MenuItem Header="启动" Command="{s:Action StartServer}"/>
+                    <MenuItem Header="删除" Command="{s:Action DelServer}"/>
                 </ContextMenu>
             </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="domain:DemoItem">
+                <DataTemplate >
                     <Grid Height="40">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <ToggleButton Grid.RowSpan="2" Grid.Column="0" Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" Padding="0" Background="{DynamicResource SecondaryAccentBrush}">
-                            <materialDesign:PackIcon Kind="{Binding Image}" Height="30" Width="30" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
-                        </ToggleButton>
-                        <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                        <GridSplitter  Grid.RowSpan="2" Width="5" Background="{DynamicResource SecondaryAccentBrush}" Margin="0,0,3,0"
+                                       Visibility="{Binding IsSelected, Converter={x:Static s:BoolToVisibilityConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" >
+                            <RadioButton IsChecked="{Binding Open,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Open, Converter={x:Static s:BoolToVisibilityConverter.Instance}}" GroupName="ServerGroup" Style="{StaticResource MaterialDesignAccentRadioButton}" Margin="0,0,8,0"/>
+                            <TextBlock Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="15" VerticalAlignment="Bottom" />
+                        </StackPanel>
+
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
-                            <TextBlock  Text="{Binding Address}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                             <TextBlock  Text=":" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
-                            <TextBlock  Text="{Binding Port}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
