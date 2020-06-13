@@ -25,6 +25,7 @@ namespace Votrix.Pages
         public bool ShowSS { get; set; } = true;
         public bool ShowVMess { get; set; }
         public bool ShowShocks { get; set; }
+        public bool ShowTrojan { get; set; }
 
         public int SelectIndex { get; set; }
         public Server CurServer { get; set; }
@@ -69,6 +70,7 @@ namespace Votrix.Pages
                 case eProtocolType.shadowsocks: ShowSS = true;break;
                 case eProtocolType.vmess: ShowVMess = true; break;
                 case eProtocolType.socks: ShowShocks = true; break;
+                case eProtocolType.trojan: ShowTrojan = true;break;
             }
         }
 
@@ -245,6 +247,8 @@ namespace Votrix.Pages
                 CurServer.PType = eProtocolType.socks;
             if (ShowVMess)
                 CurServer.PType = eProtocolType.vmess;
+            if (ShowTrojan)
+                CurServer.PType = eProtocolType.trojan;
 
             int iIndex = SelectIndex;
             ServerList[SelectIndex] = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(CurServer);

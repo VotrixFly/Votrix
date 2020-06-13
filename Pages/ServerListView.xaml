@@ -101,6 +101,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!--添加服务器按钮-->
         <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox}"
                                  HorizontalAlignment="Right" VerticalAlignment="Bottom"
                                  Margin="32" Grid.Row="1" Grid.Column="0" Width="45" Height="45" Foreground="White">
@@ -134,6 +135,7 @@
                     <RadioButton Content="SS" IsChecked="{Binding ShowSS}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                     <RadioButton Content="VMESS" IsChecked="{Binding ShowVMess}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                     <RadioButton Content="SOCKS" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
+                    <RadioButton Content="TROJAN" IsChecked="{Binding ShowTrojan}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>
                     <!--<RadioButton Content="HTTP" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>-->
                     <!--<RadioButton Content="TROJAN" IsChecked="{Binding ShowShocks}" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4,4,4,0" Padding="16,4" VerticalAlignment="Bottom" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalContentAlignment="Right"/>-->
                 </StackPanel>
@@ -260,20 +262,47 @@
                     <TextBlock Grid.Row="2" Text="端口:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                     <TextBlock Grid.Row="4" Text="用户:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
                     <TextBlock Grid.Row="5" Text="密码:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
-                    <TextBlock Grid.Row="6" Text="加密方式:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />
+                    <!--<TextBlock Grid.Row="6" Text="加密方式:" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" HorizontalAlignment="Right" />-->
 
                     <TextBox Grid.Row="0" FontSize="13" Grid.Column="1" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Text="{Binding CurServer.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                     <TextBox Grid.Row="1" FontSize="13" Grid.Column="1" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Text="{Binding CurServer.Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                     <TextBox Grid.Row="2" FontSize="13" Grid.Column="1" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Text="{Binding CurServer.Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center"  Margin="0.6,9.8,0,9.8" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                     <TextBox Grid.Row="4" FontSize="13" Grid.Column="1" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Text="{Binding CurServer.UserName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
-                    <!--<TextBox Grid.Row="5" FontSize="13" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>-->
                     <PasswordBox Grid.Row="5" FontSize="13" Grid.Column="1" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" aigsc:PasswordBoxHelper.Attach="True" aigsc:PasswordBoxHelper.Password="{Binding Path=CurServer.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
 
-                    <ComboBox Grid.Row="6" BorderThickness="1" Padding="10,6,0,6" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" VerticalContentAlignment="Center" Grid.Column="1" Margin="0.6,7,0,8.6" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
+                    <!--<ComboBox Grid.Row="6" BorderThickness="1" Padding="10,6,0,6" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" VerticalContentAlignment="Center" Grid.Column="1" Margin="0.6,7,0,8.6" HorizontalAlignment="Left" Width="260" BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"
                               ItemsSource="{Binding ComboxSecuritySocks}" SelectedValuePath="Key" DisplayMemberPath="Value" 
-                              SelectedValue="{Binding CurServer.SecuritySocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                              SelectedValue="{Binding CurServer.SecuritySocks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
 
                 </Grid>
+
+                <!--Trojan配置-->
+                <Grid Visibility="{Binding ShowTrojan, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="别名:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
+                    <TextBlock Grid.Row="1" Text="IP地址:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
+                    <TextBlock Grid.Row="2" Text="端口:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
+                    <TextBlock Grid.Row="4" Text="密码:" HorizontalAlignment="Right" FontSize="15" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" VerticalAlignment="Center" Padding="20,0" />
+
+                    <TextBox Grid.Row="0" FontSize="13" Text="{Binding CurServer.Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                    <TextBox Grid.Row="1" FontSize="13" Text="{Binding CurServer.Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                    <TextBox Grid.Row="2" FontSize="13" Text="{Binding CurServer.Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" Grid.Column="1" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,-1" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6" HorizontalAlignment="Left" Width="260"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                    <PasswordBox Grid.Row="4" FontSize="13" Grid.Column="1" aigsc:PasswordBoxHelper.Attach="True"  materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" aigsc:PasswordBoxHelper.Password="{Binding Path=CurServer.Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="1" VerticalContentAlignment="Bottom" Padding="5,0,0,0" VerticalAlignment="Center" Margin="0.6,10,45.2,9.6"  BorderBrush="{DynamicResource PrimaryHueLightForegroundBrush}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                </Grid>
+
             </Grid>
 
             <!--按钮-->

@@ -12,23 +12,19 @@ namespace Votrix.Protocol
         shadowsocks,
         vmess,
         socks,
+        trojan,
     }
 
     public enum eSecuritySS
     {
         aes_128_gcm,
-        aes_192_gcm,
         aes_256_gcm,
         aes_128_cfb,
-        aes_192_cfb,
         aes_256_cfb,
-        aes_128_ctr,
-        aes_192_ctr,
-        aes_256_ctr,
         chacha20,
         chacha20_ietf,
         chacha20_ietf_poly1305,
-        rc4_md5,
+        chacha20_poly1305,
     }
 
     public enum eSecurityVmess

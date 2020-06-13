@@ -20,7 +20,7 @@
 
         <!--左上角名称与按钮-->
         <DockPanel  Background="{DynamicResource PrimaryHueLightBrush}">
-            <TextBlock Text="服务列表" Height="32" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Width="Auto" Padding="15,0,0,0" FontSize="18" VerticalAlignment="Bottom" />
+            <TextBlock Text="订阅列表" Height="32" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Width="Auto" Padding="15,0,0,0" FontSize="18" VerticalAlignment="Bottom" />
         </DockPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
