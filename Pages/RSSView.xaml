@@ -23,22 +23,15 @@
             <TextBlock Text="服务列表" Height="32" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Width="Auto" Padding="15,0,0,0" FontSize="18" VerticalAlignment="Bottom" />
         </DockPanel>
 
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" >
             <ScrollViewer.Resources>
                 <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}"/>
             </ScrollViewer.Resources>
             <DataGrid ItemsSource="{Binding RSSList}" CanUserSortColumns="True" CanUserAddRows="False" AutoGenerateColumns="False" materialDesign:DataGridAssist.CellPadding="13 8 8 8" materialDesign:DataGridAssist.ColumnHeaderPadding="8">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Binding="{Binding IsSelect}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                        <DataGridCheckBoxColumn.Header>
-                            <Border Background="Transparent" Padding="6 0 6 0" HorizontalAlignment="Center">
-                                <CheckBox IsChecked="{Binding IsAllItems3Selected}" HorizontalAlignment="Center" DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext}"/>
-                            </Border>
-                        </DataGridCheckBoxColumn.Header>
-                    </DataGridCheckBoxColumn>
-                    <DataGridTextColumn Binding="{Binding Name}" Header="备注" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
-                    <DataGridTextColumn Binding="{Binding Url}" Header="链接" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                     <DataGridCheckBoxColumn Binding="{Binding Open}" Header="启用" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"></DataGridCheckBoxColumn>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="备注" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" materialDesign:TextFieldAssist.UnderlineBrush="{DynamicResource SecondaryAccentBrush}" />
+                    <DataGridTextColumn Binding="{Binding Url}" Header="链接" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>

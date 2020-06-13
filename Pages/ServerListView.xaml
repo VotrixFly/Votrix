@@ -7,10 +7,15 @@
              xmlns:local="clr-namespace:Votrix.Pages"
              mc:Ignorable="d" 
              xmlns:aigsc="clr-namespace:AIGS.Control;assembly=AIGS"
+             xmlns:aigscom="clr-namespace:AIGS.Common;assembly=AIGS"
              d:DesignHeight="700" d:DesignWidth="1000"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:system="clr-namespace:System;assembly=mscorlib"   
              d:DataContext="{d:DesignInstance local:ServerListViewModel}">
+
+    <UserControl.Resources>
+        <aigscom:NotEmptyToVisibilityConverter x:Key="aigNotEmptyToV" />
+    </UserControl.Resources>
 
     <Grid Background="{DynamicResource PrimaryHueLightBrush}">
         <Grid.RowDefinitions>
@@ -19,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -38,8 +43,33 @@
             </ListBox.Resources>
             <ListBox.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="启动" Command="{s:Action StartServer}"/>
-                    <MenuItem Header="删除" Command="{s:Action DelServer}"/>
+                    <MenuItem Header="启动/重启" InputGestureText="Enter" Command="{s:Action StartServer}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="NetworkOutline" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="分享" InputGestureText="Ctrl+S" Command="{s:Action Share}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="ShareVariant" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="测试延迟" InputGestureText="Ctrl+R" Command="{s:Action TestPing}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Wifi" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="测试速度" InputGestureText="Ctrl+T" Command="{s:Action TestSpeed}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Speedometer"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Header="删除" InputGestureText="Delete" Command="{s:Action DelServer}">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="DeleteForeverOutline" />
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </ContextMenu>
             </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
@@ -56,14 +86,15 @@
                         <GridSplitter  Grid.RowSpan="2" Width="5" Background="{DynamicResource SecondaryAccentBrush}" Margin="0,0,3,0"
                                        Visibility="{Binding IsSelected, Converter={x:Static s:BoolToVisibilityConverter.Instance}, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}}"/>
                         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" >
-                            <RadioButton IsChecked="{Binding Open,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Open, Converter={x:Static s:BoolToVisibilityConverter.Instance}}" GroupName="ServerGroup" Style="{StaticResource MaterialDesignAccentRadioButton}" Margin="0,0,8,0"/>
+                            <RadioButton IsChecked="{Binding Open,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Open, Converter={x:Static s:BoolToVisibilityConverter.Instance}}" GroupName="ServerGroup" Style="{StaticResource MaterialDesignAccentRadioButton}" Margin="0,0,4,0"/>
                             <TextBlock Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" FontSize="15" VerticalAlignment="Bottom" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" >
-                            <TextBlock  Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
-                            <TextBlock  Text=":" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
-                            <TextBlock  Text="{Binding Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="15" VerticalAlignment="Bottom"/>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock  Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="14" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text=":" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Port,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" FontSize="14" VerticalAlignment="Bottom"/>
+                            <TextBlock  Text="{Binding Speed,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=Speed, Converter={StaticResource aigNotEmptyToV}}"  Foreground="White" VerticalAlignment="Bottom" Margin="5,0" Padding="5,0" Background="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
@@ -84,7 +115,7 @@
                     <materialDesign:PackIcon Kind="BorderColour" Height="20" Width="20" />
                 </Button>
             </StackPanel>
-        </materialDesign:PopupBox> 
+        </materialDesign:PopupBox>
 
         <!--右侧设置-->
         <Grid Grid.Row="1" Grid.Column="1" Background="{DynamicResource PrimaryHueLightBrush}">
@@ -155,7 +186,7 @@
                         <RowDefinition Height="45"/>
                         <RowDefinition Height="45"/>
                         <RowDefinition Height="15"/>
-                        
+
                         <RowDefinition Height="45"/>
                         <RowDefinition Height="45"/>
                         <RowDefinition Height="45"/>
@@ -208,7 +239,7 @@
 
                 <!--Shocks配置-->
                 <!--<Grid >-->
-                    <Grid Visibility="{Binding ShowShocks, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
+                <Grid Visibility="{Binding ShowShocks, Converter={x:Static s:BoolToVisibilityConverter.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>

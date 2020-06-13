@@ -25,6 +25,9 @@ namespace Votrix.Else
         public string UserName { get; set; }
         public string Password { get; set; }
 
+        //测速
+        public string Speed { get; set; }
+
         //加密方式
         public int SecuritySS { get; set; } = (int)eSecuritySS.aes_256_cfb;
         public int SecurityVmess { get; set; } = (int)eSecurityVmess.auto;

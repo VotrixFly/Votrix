@@ -9,7 +9,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        Title="Votrix" Height="700" Width="1000"
+        Title="Votrix" Height="700" Width="1200"
         xmlns:s="https://github.com/canton7/Stylet"
         d:DataContext="{d:DesignInstance local:MainViewModel}">
 
@@ -28,13 +28,38 @@
             <tb:TaskbarIcon LeftClickCommand="{s:Action WindowShow}" IconSource="/Votrix;component/icon/log_cloud.ico">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="模式选择" Command="{s:Action WindowClose}"/>
-                        <MenuItem Header="服务器选择" Command="{s:Action WindowClose}"/>
+                        <MenuItem Header="模式选择">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="AllInclusive" />
+                            </MenuItem.Icon>
+                            <MenuItem Header="全局模式" IsCheckable="True"/>
+                            <MenuItem Header="PAC模式" IsCheckable="True"/>
+                            <MenuItem Header="直连模式" IsCheckable="True"/>
+                            <Separator />
+                            <MenuItem Header="关闭" IsCheckable="True" IsChecked="True"/>
+                        </MenuItem>
+                        <MenuItem Header="服务器选择" ItemsSource="{Binding VMServerList.ServerNames}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="DatabaseSearch" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                         <Separator />
-                        <MenuItem Header="导入二维码" Command="{s:Action AddServerFromQrcode}"/>
-                        <MenuItem Header="导入URL" Command="{s:Action AddServerFromUrl}"/>
+                        <MenuItem Header="导入二维码" Command="{s:Action AddServerFromQrcode}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="QrcodeScan" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="导入URL" Command="{s:Action AddServerFromUrl}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="ContentPaste" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                         <Separator />
-                        <MenuItem Header="退出程序" Command="{s:Action WindowClose}"/>
+                        <MenuItem Header="退出程序" Command="{s:Action WindowClose}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Close" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </ContextMenu>
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>

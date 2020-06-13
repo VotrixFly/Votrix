@@ -28,8 +28,9 @@ namespace Votrix.Pages
 
         public int SelectIndex { get; set; }
         public Server CurServer { get; set; }
-        public ObservableCollection<Server> ServerList { get; set; } = new ObservableCollection<Server>();
 
+        public ObservableCollection<Server> ServerList { get; set; } = new ObservableCollection<Server>();
+        public ObservableCollection<string> ServerNames { get; set; } = new ObservableCollection<string>();
 
         public static Dictionary<int, string> ComboxSecuritySS { get; set; }
         public static Dictionary<int, string> ComboxSecurityVmess { get; set; }
@@ -49,6 +50,16 @@ namespace Votrix.Pages
             ComboxNetwork = AIGS.Common.Convert.ConverEnumToDictionary(typeof(eNetwork), false);
 
             ServerList = Config.RWServers();
+            LoadServerNames();
+        }
+
+        public void LoadServerNames()
+        {
+            ServerNames.Clear();
+            foreach (var item in ServerList)
+            {
+                ServerNames.Add(item.Name);
+            }
         }
 
         public void SetProtocolView(eProtocolType eType)
@@ -59,6 +70,24 @@ namespace Votrix.Pages
                 case eProtocolType.vmess: ShowVMess = true; break;
                 case eProtocolType.socks: ShowShocks = true; break;
             }
+        }
+
+        //分享
+        public void Share()
+        {
+
+        }
+
+        //测试延迟
+        public void TestPing()
+        {
+
+        }
+
+        //测试速度
+        public void TestSpeed()
+        {
+
         }
 
         #region 操作服务器
@@ -74,6 +103,7 @@ namespace Votrix.Pages
             SetProtocolView(CurServer.PType);
             //保存到配置文件中
             Config.RWServers(ServerList);
+            LoadServerNames();
         }
 
         //从黏贴导入
@@ -156,6 +186,12 @@ namespace Votrix.Pages
         {
             if (SelectIndex < 0)
                 return;
+
+            //询问
+            if (MessageBox.Show("是否删除服务器?", "提示", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                return;
+
+            //移除
             int iIndex = SelectIndex;
             ServerList.RemoveAt(SelectIndex);
 
@@ -166,6 +202,7 @@ namespace Votrix.Pages
 
             //保存
             Config.RWServers(ServerList);
+            LoadServerNames();
         }
 
         //启动服务器
@@ -213,6 +250,7 @@ namespace Votrix.Pages
             ServerList[SelectIndex] = AIGS.Common.Convert.ConverClassBToClassA<Server, Server>(CurServer);
             SelectIndex = iIndex;
             Config.RWServers(ServerList);
+            LoadServerNames();
             return;
         }
 
